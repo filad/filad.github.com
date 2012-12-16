@@ -4,7 +4,7 @@
   <title><![CDATA[filkor.org Writings]]></title>
   <link href="http://filad.github.com/atom.xml" rel="self"/>
   <link href="http://filad.github.com/"/>
-  <updated>2012-12-15T18:52:19-05:00</updated>
+  <updated>2012-12-16T15:06:36-05:00</updated>
   <id>http://filad.github.com/</id>
   <author>
     <name><![CDATA[filkor]]></name>
@@ -12,5 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hello World post]]></title>
+    <link href="http://filad.github.com/2012/12/16/hello-world-post/"/>
+    <updated>2012-12-16T14:45:00-05:00</updated>
+    <id>http://filad.github.com/2012/12/16/hello-world-post</id>
+    <content type="html"><![CDATA[<p>Hello. World.</p>
+
+<ul>
+<li>apple</li>
+<li>github</li>
+</ul>
+
+
+<p>This is <a href="http://example.com/" title="Title">an example</a> inline link.</p>
+
+<p><code>This is some code</code></p>
+]]></content>
+  </entry>
   
 </feed>
