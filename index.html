@@ -9,9 +9,7 @@
   <meta name="author" content="filkor">
 
   
-  <meta name="description" content="Hello. World. apple
-github This is an example inline link. This is some code
-">
+  <meta name="description" content="I&#8217;ve just set up Octopress. I chose it because Octopress is a static blog engine, therefore you can host the whole thing on GitHub so no &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -31,20 +29,33 @@ github This is an example inline link. This is some code
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+
+<!-- prettyprint syntax highlighter as seen on HTML5Rocks and the sunburst theme (little modified)  -->
+<link rel="stylesheet" href="/assets/prettyprint-highlighter/prettify-sunburst.css" media="all">
+
+<script src="/assets/prettyprint-highlighter/prettify.js"></script>
+<script>
+	//load prettify.js
+	$(document).ready(function(){
+		prettyPrint();
+	});
+</script>
   
 
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
+  <header role="banner"><!--
+<hgroup>
   <h1><a href="/">filkor.org Writings</a></h1>
   
     <h2>A blogging framework for hackers.</h2>
   
 </hgroup>
-
+-->
+<a href="/"><img width="450px"src="/images/filkor-blog-banner.png"></a>
 </header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <!-- NO NAVIGATION BAR - filkor   <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
 </ul>
@@ -60,8 +71,7 @@ github This is an example inline link. This is some code
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
 </ul>
-
-</nav>
+</nav> -->
   <div id="main">
     <div id="content">
       <div class="blog-index">
@@ -72,7 +82,7 @@ github This is an example inline link. This is some code
       
   <header>
     
-      <h1 class="entry-title"><a href="/2012/12/16/hello-world-post/">Hello World Post</a></h1>
+      <h1 class="entry-title"><a href="/2013/04/12/hello-world/">Hello World..</a></h1>
     
     
       <p class="meta">
@@ -88,24 +98,17 @@ github This is an example inline link. This is some code
   
 
 
-<time datetime="2012-12-16T14:45:00-05:00" pubdate data-updated="true">Dec 16<span>th</span>, 2012</time>
+<time datetime="2013-04-12T14:45:00-04:00" pubdate data-updated="true">Apr 12<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Hello. World.</p>
+  <div class="entry-content"><p>I&#8217;ve just set up Octopress.</p>
 
-<ul>
-<li>apple</li>
-<li>github</li>
-</ul>
-
-
-<p>This is <a href="http://example.com/" title="Title">an example</a> inline link.</p>
-
-<p><code>This is some code</code></p>
+<p>I chose it because Octopress is a static blog engine, therefore you can host the whole thing on GitHub so no worries about backup and traffic pikes.
+It&#8217;s not that hard to set up and make some customizations, at least everything went smoothly so far.</p>
 </div>
   
   
@@ -126,7 +129,7 @@ github This is an example inline link. This is some code
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/2012/12/16/hello-world-post/">Hello World post</a>
+        <a href="/2013/04/12/hello-world/">Hello World..</a>
       </li>
     
   </ul>
@@ -143,7 +146,7 @@ github This is an example inline link. This is some code
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - filkor -
+  Copyright &copy; 2013 - <a href="http://filkor.org">filkor</a> -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
