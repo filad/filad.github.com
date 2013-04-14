@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[filkor.org Writings]]></title>
-  <link href="http://filad.github.com/atom.xml" rel="self"/>
-  <link href="http://filad.github.com/"/>
-  <updated>2013-04-14T17:46:34-04:00</updated>
-  <id>http://filad.github.com/</id>
+  <link href="http://dev.filkor.org/atom.xml" rel="self"/>
+  <link href="http://dev.filkor.org/"/>
+  <updated>2013-04-14T17:51:28-04:00</updated>
+  <id>http://dev.filkor.org/</id>
   <author>
     <name><![CDATA[filkor]]></name>
     
@@ -15,15 +15,15 @@
   
   <entry>
     <title type="html"><![CDATA[Create an interactive map using Javascript and HTML5 Canvas]]></title>
-    <link href="http://filad.github.com/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas/"/>
+    <link href="http://dev.filkor.org/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas/"/>
     <updated>2013-04-14T19:11:00-04:00</updated>
-    <id>http://filad.github.com/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas</id>
+    <id>http://dev.filkor.org/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas</id>
     <content type="html"><![CDATA[<p>I will show you how to create a custom interactive map using the HTML5 <code>&lt;canvas&gt;</code> element.<br/>
 You can check the result: <a href="http://riskmap.filkor.org" target="_blank"><strong>DEMO here</strong></a><br/>
 The map size on the demo is 1920x1080 pixels.</p>
 
 <p><a href="http://riskmap.filkor.org" target="_blank">
-<img class="aligncenter" src="http://filad.github.com/images/risk/map-sample.png" alt="" title="Risk map">
+<img class="aligncenter" src="http://dev.filkor.org/images/risk/map-sample.png" alt="" title="Risk map">
 </a></p>
 
 <p>Creating simple interactive maps is not so hard, you can see examples <a href="http://www.html5canvastutorials.com/labs/html5-canvas-world-map-svg-path-with-kineticjs/">here</a>, or <a href="http://raphaeljs.com/world/">here</a>.<br/>
@@ -45,7 +45,7 @@ But when you need more customization, like different territory textures, shadows
 <h4>Draw the base paths with Illustrator</h4>
 
 <p>First we need to draw the paths for the map. Well, I can&#8217;t draw. I got
-<a href="http://filad.github.com/images/risk/risk-original.jpg" target="_blank">this picture</a> from the web and used this as a template, when I was drawing the paths.<br/>
+<a href="http://dev.filkor.org/images/risk/risk-original.jpg" target="_blank">this picture</a> from the web and used this as a template, when I was drawing the paths.<br/>
 Open up Illustrator and make sure you set the size correctly, then our job is simply to draw the paths with the pen tool, based on the existing map image.</p>
 
 <p>The drawing process looks like this:</p>
@@ -55,7 +55,7 @@ Open up Illustrator and make sure you set the size correctly, then our job is si
 
 <p>When you are done the groups will look like:</p>
 
-<p><img class="aligncenter" src="http://filad.github.com/images/risk/risk-1.png" alt=""></p>
+<p><img class="aligncenter" src="http://dev.filkor.org/images/risk/risk-1.png" alt=""></p>
 
 <p>A few notes: when you are drawing, make sure that the territories are not overlapping each other. I like to draw the continents first, then draw the border lines separately, duplicate them and join these paths to a single territory (as you can see on the video above), so you are using the same paths for the neighbour territories, and we can avoid overlapping.</p>
 
@@ -63,7 +63,7 @@ Open up Illustrator and make sure you set the size correctly, then our job is si
 
 <p>When you have drawn the paths you can save it as SVG:<br/>
 (File -> Save As&#8230;)
-<img src="http://filad.github.com/images/risk/saveas.png" alt="" class="aligncenter"></p>
+<img src="http://dev.filkor.org/images/risk/saveas.png" alt="" class="aligncenter"></p>
 
 <p>Now you have a .svg file, let&#8217;s call it <code>risk-paths.svg</code> which is plain XML by the way, and it&#8217;s content looks like this:</p>
 
@@ -193,11 +193,11 @@ var Risk = {
 
 <p>The tricky part comes now. I used the following image as the background:</p>
 
-<p><img width="100%" src="http://filad.github.com/images/risk/map_grey.jpg" alt=""></p>
+<p><img width="100%" src="http://dev.filkor.org/images/risk/map_grey.jpg" alt=""></p>
 
 <p>How it&#8217;s done? You can export your paths from Illustrator to Photoshop.  It will convert your groups into Photoshop layers. (Go to Illustrator->File->Export..->choose *.PSD as your format, uncheck Anti-alias)
 Open up this .psd file and you will see your paths as actual Photoshop layers now. Pretty.<br/>
-With Photoshop you can style it as you want, for example you can see a colored one <a href="http://filad.github.com/images/risk/risk-colored-small.jpg" target="_blank">here</a>. Now we are using a grey map because the actual colored territories will be drawn with Javascript.</p>
+With Photoshop you can style it as you want, for example you can see a colored one <a href="http://dev.filkor.org/images/risk/risk-colored-small.jpg" target="_blank">here</a>. Now we are using a grey map because the actual colored territories will be drawn with Javascript.</p>
 
 <p>I will not write down the actual styling process because the post would be too long. If you have some Photoshop skills, you can do it quite easily. (Go to &#8220;Blending Options..&#8221; I used a little outer- and inner glow - for the grey map too -, stroke on the continents, and color overlay)</p>
 
@@ -336,7 +336,7 @@ drawTerritories: function() {
 
 <p>We can&#8217;t export all the names as images, we have to create a sprite from them. So one image will contain all the names (therefore the whole application will load faster), this sprite looks like this:</p>
 
-<p><img src="http://filad.github.com/images/risk/names.png" class="aligncenter" width="160px"></p>
+<p><img src="http://dev.filkor.org/images/risk/names.png" class="aligncenter" width="160px"></p>
 
 <p>How do I made this sprite? Well, it&#8217;s a long story, but I heavily used Photoshop scripts for this job.. I modified the layersToSprite.jsx script what you can find online.</p>
 
@@ -357,9 +357,9 @@ the sprite based on the data in <code>coordinates.js</code>. (This data also par
   
   <entry>
     <title type="html"><![CDATA[Hello World..]]></title>
-    <link href="http://filad.github.com/2013/04/12/hello-world/"/>
+    <link href="http://dev.filkor.org/2013/04/12/hello-world/"/>
     <updated>2013-04-12T14:45:00-04:00</updated>
-    <id>http://filad.github.com/2013/04/12/hello-world</id>
+    <id>http://dev.filkor.org/2013/04/12/hello-world</id>
     <content type="html"><![CDATA[<p>I&#8217;ve just set up Octopress.</p>
 
 <p>I chose it because Octopress is a static blog engine, therefore you can host the whole thing on GitHub so no worries about backup and traffic pikes.

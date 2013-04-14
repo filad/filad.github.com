@@ -1,21 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://filad.github.com/2013/04/12/hello-world/</loc>
+        <loc>http://dev.filkor.org/2013/04/12/hello-world/</loc>
         <lastmod>2013-04-14T13:13:39-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://filad.github.com/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas/
+            http://dev.filkor.org/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas/
         </loc>
         <lastmod>2013-04-14T16:42:01-04:00</lastmod>
     </url>
     <url>
-        <loc>http://filad.github.com/blog/archives/</loc>
+        <loc>http://dev.filkor.org/blog/archives/</loc>
         <lastmod>2013-04-14T16:42:01-04:00</lastmod>
     </url>
     <url>
-        <loc>http://filad.github.com/</loc>
+        <loc>http://dev.filkor.org/</loc>
         <lastmod>2013-04-14T16:42:01-04:00</lastmod>
     </url>
 </urlset>
