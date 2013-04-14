@@ -1,122 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>filkor.org Writings</title>
-  <meta name="author" content="filkor">
-
-  
-  <meta name="description" content="I will show you how to create a custom interactive map using the HTML5 &lt;canvas&gt; element.
-You can check the result: DEMO here
-The map size on &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://filad.github.com/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="filkor.org Writings" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-
-<!-- prettyprint syntax highlighter as seen on HTML5Rocks and the sunburst theme (little modified)  -->
-<link rel="stylesheet" href="/assets/prettyprint-highlighter/prettify-sunburst.css" media="all">
-
-<script src="/assets/prettyprint-highlighter/prettify.js"></script>
-<script>
-	//load prettify.js
-	$(document).ready(function(){
-		prettyPrint();
-	});
-</script>
-  
-
-</head>
-
-<body   >
-  <header role="banner"><!--
-<hgroup>
-  <h1><a href="/">filkor.org Writings</a></h1>
-  
-    <h2>A blogging framework for hackers.</h2>
-  
-</hgroup>
--->
-<a href="/"><img width="450px"src="/images/filkor-blog-banner.png"></a>
-</header>
-  <!-- NO NAVIGATION BAR - filkor   <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:filad.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-</nav> -->
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Category: js | filkor.org Writings]]></title>
+  <link href="http://filad.github.com/blog/categories/js/atom.xml" rel="self"/>
+  <link href="http://filad.github.com/"/>
+  <updated>2013-04-14T16:41:15-04:00</updated>
+  <id>http://filad.github.com/</id>
+  <author>
+    <name><![CDATA[filkor]]></name>
     
-      <h1 class="entry-title"><a href="/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas/">Create an Interactive Map Using Javascript and HTML5 Canvas</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2013-04-14T19:11:00-04:00" pubdate data-updated="true">Apr 14<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I will show you how to create a custom interactive map using the HTML5 <code>&lt;canvas&gt;</code> element.<br/>
+  <entry>
+    <title type="html"><![CDATA[Create an interactive map using Javascript and HTML5 Canvas]]></title>
+    <link href="http://filad.github.com/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas/"/>
+    <updated>2013-04-14T19:11:00-04:00</updated>
+    <id>http://filad.github.com/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas</id>
+    <content type="html"><![CDATA[<p>I will show you how to create a custom interactive map using the HTML5 <code>&lt;canvas&gt;</code> element.<br/>
 You can check the result: <a href="http://riskmap.filkor.org" target="_blank"><strong>DEMO here</strong></a><br/>
 The map size on the demo is 1920x1080 pixels.</p>
 
 <p><a href="http://riskmap.filkor.org" target="_blank">
-<img class="aligncenter" src="/images/risk/map-sample.png" alt="" title="Risk map">
+<img class="aligncenter" src="http://filad.github.com/images/risk/map-sample.png" alt="" title="Risk map">
 </a></p>
 
 <p>Creating simple interactive maps is not so hard, you can see examples <a href="http://www.html5canvastutorials.com/labs/html5-canvas-world-map-svg-path-with-kineticjs/">here</a>, or <a href="http://raphaeljs.com/world/">here</a>.<br/>
-But when you need more customization, like different territory textures, shadows, special font-styles&#8230;etc, well then you have to use different tools for this job.</p>
+But when you need more customization, like different territory textures, shadows, special font-styles...etc, well then you have to use different tools for this job.</p>
 
 <p>What you will need:</p>
 
@@ -130,8 +41,8 @@ But when you need more customization, like different territory textures, shadows
 
 <h4>Draw the base paths with Illustrator</h4>
 
-<p>First we need to draw the paths for the map. Well, I can&#8217;t draw. I got
-<a href="/images/risk/risk-original.jpg" target="_blank">this picture</a> from the web and used this as a template, when I was drawing the paths.<br/>
+<p>First we need to draw the paths for the map. Well, I can't draw. I got
+<a href="http://filad.github.com/images/risk/risk-original.jpg" target="_blank">this picture</a> from the web and used this as a template, when I was drawing the paths.<br/>
 Open up Illustrator and make sure you set the size correctly, then our job is simply to draw the paths with the pen tool, based on the existing map image.</p>
 
 <p>The drawing process looks like this:</p>
@@ -141,17 +52,17 @@ Open up Illustrator and make sure you set the size correctly, then our job is si
 
 <p>When you are done the groups will look like:</p>
 
-<p><img class="aligncenter" src="/images/risk/risk-1.png" alt=""></p>
+<p><img class="aligncenter" src="http://filad.github.com/images/risk/risk-1.png" alt=""></p>
 
 <p>A few notes: when you are drawing, make sure that the territories are not overlapping each other. I like to draw the continents first, then draw the border lines separately, duplicate them and join these paths to a single territory (as you can see on the video above), so you are using the same paths for the neighbour territories, and we can avoid overlapping.</p>
 
 <h4>Save the paths as SVG and parse the path data</h4>
 
 <p>When you have drawn the paths you can save it as SVG:<br/>
-(File -> Save As&#8230;)
-<img src="/images/risk/saveas.png" alt="" class="aligncenter"></p>
+(File -> Save As...)
+<img src="http://filad.github.com/images/risk/saveas.png" alt="" class="aligncenter"></p>
 
-<p>Now you have a .svg file, let&#8217;s call it <code>risk-paths.svg</code> which is plain XML by the way, and it&#8217;s content looks like this:</p>
+<p>Now you have a .svg file, let's call it <code>risk-paths.svg</code> which is plain XML by the way, and it's content looks like this:</p>
 
 <pre class="prettyprint lang-svg" ...>
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
@@ -185,7 +96,7 @@ var TerritoryPathData = {
 </pre>
 
 
-<p>The easiest way to do this is by using an XML parser libaray. I used PHP&#8217;s <a href="http://php.net/manual/en/book.simplexml.php">SimepleXML</a> library for this job.<br/>
+<p>The easiest way to do this is by using an XML parser libaray. I used PHP's <a href="http://php.net/manual/en/book.simplexml.php">SimepleXML</a> library for this job.<br/>
 An exaple code for the usage would be:</p>
 
 <pre class="prettyprint">
@@ -204,19 +115,19 @@ An exaple code for the usage would be:</p>
 </pre>
 
 
-<p>Note that it requires the <code>risk-paths.svg</code> file we created earlier.  This code skips the continents like &#8216;Europe&#8217;.. we just need the single territories path data right now.
+<p>Note that it requires the <code>risk-paths.svg</code> file we created earlier.  This code skips the continents like 'Europe'.. we just need the single territories path data right now.
 Open up this PHP file in your browser (on localhost) and you will see the parsed data.</p>
 
 <p>Now we have this object <code>TerritoryPathData</code> containing our parsed data. Put this inside a separate file (say <code>paths.js</code>).</p>
 
-<p>We will include <code>paths.js</code> inside our index.html. KineticJS will read this data and build his inner <code>Kinetic.Path</code> objects based on the contents of <code>paths.js</code>, then we can start to play with interactivity through the KineticJS functions (hover events, etc&#8230;).</p>
+<p>We will include <code>paths.js</code> inside our index.html. KineticJS will read this data and build his inner <code>Kinetic.Path</code> objects based on the contents of <code>paths.js</code>, then we can start to play with interactivity through the KineticJS functions (hover events, etc...).</p>
 
 <h4>Setting up KineticJS, and draw our backgroud image</h4>
 
 <p>In the above section we took care of the territory paths. Draw them in Illustrator, parsed the SVG and saved the paths data into <code>paths.js</code>. <br/>
 Now we will use KineticJS to read this data into a Kinetic.Path object. Why we use KineticJS ? We can reduce our work with it. It supports high performance path detection, groups, layers, transitions and much more. We dont have to code as much as with the native canvas functions. Download it from the <a target="_blank" href="http://kineticjs.com">website</a> and include it to your index.html.</p>
 
-<p>So let&#8217;s get started with KineticJS:<br/>
+<p>So let's get started with KineticJS:<br/>
 I created a file <code>risk.js</code>, and wrapped everything around a <code>Risk</code> object:</p>
 
 <pre class="prettyprint">
@@ -273,22 +184,22 @@ var Risk = {
 <li>We have to populate the <code>Risk.Territories</code> object, this object contains essential informations about the territories, like actual color etc.. we will done this with the <code>setUpTerritoriesObj()</code> function.</li>
 <li>Show the background image. We need to draw this image in Photoshop, I will show how to do this, immediately.</li>
 <li>And finally, draw the actual territories with KineticJS, set up the basic events like mouseover..</li>
-<li><code>divideTerritories()</code> is just a &#8216;helper&#8217; function, it looks good on the demo when the territories got different colors at the beginning.</li>
+<li><code>divideTerritories()</code> is just a 'helper' function, it looks good on the demo when the territories got different colors at the beginning.</li>
 </ul>
 
 
 <p>The tricky part comes now. I used the following image as the background:</p>
 
-<p><img width="100%" src="/images/risk/map_grey.jpg" alt=""></p>
+<p><img width="100%" src="http://filad.github.com/images/risk/map_grey.jpg" alt=""></p>
 
-<p>How it&#8217;s done? You can export your paths from Illustrator to Photoshop.  It will convert your groups into Photoshop layers. (Go to Illustrator->File->Export..->choose *.PSD as your format, uncheck Anti-alias)
+<p>How it's done? You can export your paths from Illustrator to Photoshop.  It will convert your groups into Photoshop layers. (Go to Illustrator->File->Export..->choose *.PSD as your format, uncheck Anti-alias)
 Open up this .psd file and you will see your paths as actual Photoshop layers now. Pretty.<br/>
-With Photoshop you can style it as you want, for example you can see a colored one <a href="/images/risk/risk-colored-small.jpg" target="_blank">here</a>. Now we are using a grey map because the actual colored territories will be drawn with Javascript.</p>
+With Photoshop you can style it as you want, for example you can see a colored one <a href="http://filad.github.com/images/risk/risk-colored-small.jpg" target="_blank">here</a>. Now we are using a grey map because the actual colored territories will be drawn with Javascript.</p>
 
-<p>I will not write down the actual styling process because the post would be too long. If you have some Photoshop skills, you can do it quite easily. (Go to &#8220;Blending Options..&#8221; I used a little outer- and inner glow - for the grey map too -, stroke on the continents, and color overlay)</p>
+<p>I will not write down the actual styling process because the post would be too long. If you have some Photoshop skills, you can do it quite easily. (Go to "Blending Options.." I used a little outer- and inner glow - for the grey map too -, stroke on the continents, and color overlay)</p>
 
-<p>Now why &#8216;exporting to Photoshop&#8217; is a tricky thing? Because you need to export it <strong>perfectly</strong>. Do not modify the paths after you saved as SVG (and parsed the path data), otherwise the grey background and the actual territories what we make with KineticJS will not fit properly.<br/>
-Also, make sure you export from Illustrator at exactly the same size as you saved the SVG (in our case it&#8217;s 1920x1080).</p>
+<p>Now why 'exporting to Photoshop' is a tricky thing? Because you need to export it <strong>perfectly</strong>. Do not modify the paths after you saved as SVG (and parsed the path data), otherwise the grey background and the actual territories what we make with KineticJS will not fit properly.<br/>
+Also, make sure you export from Illustrator at exactly the same size as you saved the SVG (in our case it's 1920x1080).</p>
 
 <p>So when we are done with the background (I will call it <code>map_grey.jpg</code>), we can complete our <code>drawBackgroundImg()</code> function above:</p>
 
@@ -309,11 +220,11 @@ drawBackgroundImg: function() {
 
 
 <p>As you can see we put the background image inside a <code>Kinetic.Layer</code>. You can think of this layer what you see in graphics editing programs.
-We will &#8216;write&#8217; the territory paths and names to a different layer, too.</p>
+We will 'write' the territory paths and names to a different layer, too.</p>
 
 <h4>Draw the territories with KineticJS</h4>
 
-<p>Now we have our background, so we can draw the territories &#8216;onto&#8217; this gray map. So let&#8217;s write our functions which will draw the actual territories. Open up <code>risk.js</code> again:</p>
+<p>Now we have our background, so we can draw the territories 'onto' this gray map. So let's write our functions which will draw the actual territories. Open up <code>risk.js</code> again:</p>
 
 <pre class="prettyprint">
 init: function() {
@@ -420,16 +331,16 @@ drawTerritories: function() {
 
 <p>If you look back at the demo, you can see the territory names. The names were made with Photoshop.</p>
 
-<p>We can&#8217;t export all the names as images, we have to create a sprite from them. So one image will contain all the names (therefore the whole application will load faster), this sprite looks like this:</p>
+<p>We can't export all the names as images, we have to create a sprite from them. So one image will contain all the names (therefore the whole application will load faster), this sprite looks like this:</p>
 
-<p><img src="/images/risk/names.png" class="aligncenter" width="160px"></p>
+<p><img src="http://filad.github.com/images/risk/names.png" class="aligncenter" width="160px"></p>
 
-<p>How do I made this sprite? Well, it&#8217;s a long story, but I heavily used Photoshop scripts for this job.. I modified the layersToSprite.jsx script what you can find online.</p>
+<p>How do I made this sprite? Well, it's a long story, but I heavily used Photoshop scripts for this job.. I modified the layersToSprite.jsx script what you can find online.</p>
 
-<p>Then inside the <code>setUpTerritoriesObj()</code> function, every territorry will get their proper name image as we &#8216;crop out&#8217; from
+<p>Then inside the <code>setUpTerritoriesObj()</code> function, every territorry will get their proper name image as we 'crop out' from
 the sprite based on the data in <code>coordinates.js</code>. (This data also parsed with certain Photosop scripts I made)</p>
 
-<p>Lastly, as you can see, I added some actions to the &#8216;mouseover&#8217;, &#8216;onlick&#8217; event (changing the opacity of the territory). For this, I grouped together the actual territory and the territory name because it&#8217;s easier to handle these events in KineticJS this way.</p>
+<p>Lastly, as you can see, I added some actions to the 'mouseover', 'onlick' event (changing the opacity of the territory). For this, I grouped together the actual territory and the territory name because it's easier to handle these events in KineticJS this way.</p>
 
 <h4>Final conclusion</h4>
 
@@ -438,112 +349,7 @@ the sprite based on the data in <code>coordinates.js</code>. (This data also par
 <p>I have tried to cover how to make a simple custom interactive map, but as you can see ,even for this simple map, you need to get your hands dirty, and a lot of things to do..</p>
 
 <p>I hope, though, that if you want to create a custom map with Javascript and HTML5 this post will help you to start.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2013/04/12/hello-world/">Hello World..</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-12T14:45:00-04:00" pubdate data-updated="true">Apr 12<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve just set up Octopress.</p>
-
-<p>I chose it because Octopress is a static blog engine, therefore you can host the whole thing on GitHub so no worries about backup and traffic pikes.
-It&#8217;s not that hard to set up and make some customizations, at least everything went smoothly so far.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas/">Create an interactive map using Javascript and HTML5 Canvas</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/04/12/hello-world/">Hello World..</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - <a href="http://filkor.org">filkor</a> -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>

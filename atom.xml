@@ -4,7 +4,7 @@
   <title><![CDATA[filkor.org Writings]]></title>
   <link href="http://filad.github.com/atom.xml" rel="self"/>
   <link href="http://filad.github.com/"/>
-  <updated>2013-04-14T16:40:38-04:00</updated>
+  <updated>2013-04-14T16:41:15-04:00</updated>
   <id>http://filad.github.com/</id>
   <author>
     <name><![CDATA[filkor]]></name>
@@ -12,6 +12,345 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Create an interactive map using Javascript and HTML5 Canvas]]></title>
+    <link href="http://filad.github.com/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas/"/>
+    <updated>2013-04-14T19:11:00-04:00</updated>
+    <id>http://filad.github.com/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas</id>
+    <content type="html"><![CDATA[<p>I will show you how to create a custom interactive map using the HTML5 <code>&lt;canvas&gt;</code> element.<br/>
+You can check the result: <a href="http://riskmap.filkor.org" target="_blank"><strong>DEMO here</strong></a><br/>
+The map size on the demo is 1920x1080 pixels.</p>
+
+<p><a href="http://riskmap.filkor.org" target="_blank">
+<img class="aligncenter" src="http://filad.github.com/images/risk/map-sample.png" alt="" title="Risk map">
+</a></p>
+
+<p>Creating simple interactive maps is not so hard, you can see examples <a href="http://www.html5canvastutorials.com/labs/html5-canvas-world-map-svg-path-with-kineticjs/">here</a>, or <a href="http://raphaeljs.com/world/">here</a>.<br/>
+But when you need more customization, like different territory textures, shadows, special font-styles&#8230;etc, well then you have to use different tools for this job.</p>
+
+<p>What you will need:</p>
+
+<ul>
+<li>Vector graphics editor to draw the base paths for the map (I used Illustrator)</li>
+<li>A general graphics editor like Photoshop, we will import the paths from Illustrator to here</li>
+<li><a href="http://kineticjs.com">KineticJS</a>, a Javascript library, for the <code>canvas</code> manipulation</li>
+<li>A little Javacript knowledge</li>
+</ul>
+
+
+<h4>Draw the base paths with Illustrator</h4>
+
+<p>First we need to draw the paths for the map. Well, I can&#8217;t draw. I got
+<a href="http://filad.github.com/images/risk/risk-original.jpg" target="_blank">this picture</a> from the web and used this as a template, when I was drawing the paths.<br/>
+Open up Illustrator and make sure you set the size correctly, then our job is simply to draw the paths with the pen tool, based on the existing map image.</p>
+
+<p>The drawing process looks like this:</p>
+
+<iframe width="300" height="169" src="http://www.youtube.com/embed/7dcYbQzhBhg" frameborder="0" allowfullscreen></iframe>
+
+
+<p>When you are done the groups will look like:</p>
+
+<p><img class="aligncenter" src="http://filad.github.com/images/risk/risk-1.png" alt=""></p>
+
+<p>A few notes: when you are drawing, make sure that the territories are not overlapping each other. I like to draw the continents first, then draw the border lines separately, duplicate them and join these paths to a single territory (as you can see on the video above), so you are using the same paths for the neighbour territories, and we can avoid overlapping.</p>
+
+<h4>Save the paths as SVG and parse the path data</h4>
+
+<p>When you have drawn the paths you can save it as SVG:<br/>
+(File -> Save As&#8230;)
+<img src="http://filad.github.com/images/risk/saveas.png" alt="" class="aligncenter"></p>
+
+<p>Now you have a .svg file, let&#8217;s call it <code>risk-paths.svg</code> which is plain XML by the way, and it&#8217;s content looks like this:</p>
+
+<pre class="prettyprint lang-svg" ...>
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+    &lt;g id=&quot;Alaska&quot;&gt;
+        &lt;path fill=&quot;none&quot; stroke=&quot;#010101&quot; stroke-width=&quot;0.75&quot; d=&quot;M141.484,115.597c3.763,0.172,7.757-0.111,11.33-1.1   c9.971-2.769,11.077,0,11.077,0s-1.106....&quot;
+    &lt;/g&gt;
+    &lt;g id=&quot;Ontario&quot;&gt;
+        &lt;path fill=&quot;none&quot; stroke=&quot;#010101&quot; stroke-width=&quot;0.75&quot; d=&quot;M386.977,281.79v12.17l-2.492,4.57v36.557   c0,0-4.57,0-5.816,0c-1.246,0-3.739-4.985-3.739-4.9....&quot;
+    &lt;/g&gt;
+    &lt;g id=&quot;Alberta&quot;&gt;
+        &lt;path fill=&quot;none&quot; stroke=&quot;#010101&quot; stroke-width=&quot;0.75&quot; d=&quot;M153.781,259.181   c4.012....&quot;
+    &lt;/g&gt;
+    ...
+    ...
+</pre>
+
+
+<p>What we need here are the <code>d="M153.781,259.181   c4.012...."</code> values inside the <code>&lt;path&gt;</code> elements.<br/>
+In order to read and manipulate the paths with Javascript we need to parse this XML code, and put the paths data inside a Javascript object like this:</p>
+
+<pre class="prettyprint">
+//paths.js
+
+var TerritoryPathData = {
+    Alaska: { path: 'M141.484,115.597c3.763,0.172,7.757-0.111,11.33-1.1   c9.971-2.769,11.077,0,11.077,0s-1.106....'},
+    Ontario: { path: 'M386.977,281.79v12.17l-2.492,4.57v36.557   c0,0-4.57,0-5.816,0c-1.246,0-3.739-4.985-3.739-4.9....'},
+    Albera: { path: 'M153.781,259.181   c4.012....'}
+    ...
+    ...
+}
+</pre>
+
+
+<p>The easiest way to do this is by using an XML parser libaray. I used PHP&#8217;s <a href="http://php.net/manual/en/book.simplexml.php">SimepleXML</a> library for this job.<br/>
+An exaple code for the usage would be:</p>
+
+<pre class="prettyprint">
+//parseSVG.php
+
+&lt;?php
+    $data = file_get_contents('risk-paths.svg');
+    $svgElements = new SimpleXMLElement($data);
+
+    foreach ($svgElements as $element) {
+        $continents =   array('Europe', 'Asia', 'NorthAmerica', 'Australia', 'SouthAmerica', 'Africa');
+        if (!in_array($element['id'], $continents ))
+            echo $element['id'] . ': { path: \'' . $element-&gt;path['d'] . '\'},&lt;br&gt;';
+    }
+?&gt;
+</pre>
+
+
+<p>Note that it requires the <code>risk-paths.svg</code> file we created earlier.  This code skips the continents like &#8216;Europe&#8217;.. we just need the single territories path data right now.
+Open up this PHP file in your browser (on localhost) and you will see the parsed data.</p>
+
+<p>Now we have this object <code>TerritoryPathData</code> containing our parsed data. Put this inside a separate file (say <code>paths.js</code>).</p>
+
+<p>We will include <code>paths.js</code> inside our index.html. KineticJS will read this data and build his inner <code>Kinetic.Path</code> objects based on the contents of <code>paths.js</code>, then we can start to play with interactivity through the KineticJS functions (hover events, etc&#8230;).</p>
+
+<h4>Setting up KineticJS, and draw our backgroud image</h4>
+
+<p>In the above section we took care of the territory paths. Draw them in Illustrator, parsed the SVG and saved the paths data into <code>paths.js</code>. <br/>
+Now we will use KineticJS to read this data into a Kinetic.Path object. Why we use KineticJS ? We can reduce our work with it. It supports high performance path detection, groups, layers, transitions and much more. We dont have to code as much as with the native canvas functions. Download it from the <a target="_blank" href="http://kineticjs.com">website</a> and include it to your index.html.</p>
+
+<p>So let&#8217;s get started with KineticJS:<br/>
+I created a file <code>risk.js</code>, and wrapped everything around a <code>Risk</code> object:</p>
+
+<pre class="prettyprint">
+//risk.js 
+
+var Risk = {
+
+    /**
+     * Settings Object, holding application wide settings
+     */
+    Settings :{
+        globalScale: 1,
+        colors: {yellow: '#ff0', green: '#0f0', blue: '#00f', red: '#f00', purple: '#f0f', cyan: '#00ffe4'},
+    },
+
+    /**
+     * Our main Territories object
+     * It looks like:
+     * Territories: {
+     *     Alaska: {path: Kinetic.Path Object, color: String, name: 'Alaska', ...},
+     *     ... 
+     *  }
+     */
+    Territories: {},
+
+    /**
+     * Some other variables
+     */
+    stage: null,
+    mapLayer: null,
+    topLayer: null,
+    backgroundLayer: null,
+
+    /**
+     * Functions that we will use
+     */
+    init: function() { },
+
+    setUpTerritoriesObj: function() { },
+
+    drawBackgroundImg: function() { },
+
+    drawTerritories: function() { },
+
+    divideTerritories: function() { }
+}
+</pre>
+
+
+<p>Before we start coding, the process is roughly the following:</p>
+
+<ul>
+<li><code>Risk.init()</code> will triggers the whole application, calling the other functions from there.</li>
+<li>We have to populate the <code>Risk.Territories</code> object, this object contains essential informations about the territories, like actual color etc.. we will done this with the <code>setUpTerritoriesObj()</code> function.</li>
+<li>Show the background image. We need to draw this image in Photoshop, I will show how to do this, immediately.</li>
+<li>And finally, draw the actual territories with KineticJS, set up the basic events like mouseover..</li>
+<li><code>divideTerritories()</code> is just a &#8216;helper&#8217; function, it looks good on the demo when the territories got different colors at the beginning.</li>
+</ul>
+
+
+<p>The tricky part comes now. I used the following image as the background:</p>
+
+<p><img width="100%" src="http://filad.github.com/images/risk/map_grey.jpg" alt=""></p>
+
+<p>How it&#8217;s done? You can export your paths from Illustrator to Photoshop.  It will convert your groups into Photoshop layers. (Go to Illustrator->File->Export..->choose *.PSD as your format, uncheck Anti-alias)
+Open up this .psd file and you will see your paths as actual Photoshop layers now. Pretty.<br/>
+With Photoshop you can style it as you want, for example you can see a colored one <a href="http://filad.github.com/images/risk/risk-colored-small.jpg" target="_blank">here</a>. Now we are using a grey map because the actual colored territories will be drawn with Javascript.</p>
+
+<p>I will not write down the actual styling process because the post would be too long. If you have some Photoshop skills, you can do it quite easily. (Go to &#8220;Blending Options..&#8221; I used a little outer- and inner glow - for the grey map too -, stroke on the continents, and color overlay)</p>
+
+<p>Now why &#8216;exporting to Photoshop&#8217; is a tricky thing? Because you need to export it <strong>perfectly</strong>. Do not modify the paths after you saved as SVG (and parsed the path data), otherwise the grey background and the actual territories what we make with KineticJS will not fit properly.<br/>
+Also, make sure you export from Illustrator at exactly the same size as you saved the SVG (in our case it&#8217;s 1920x1080).</p>
+
+<p>So when we are done with the background (I will call it <code>map_grey.jpg</code>), we can complete our <code>drawBackgroundImg()</code> function above:</p>
+
+<pre class="prettyprint">
+drawBackgroundImg: function() {
+    Risk.backgroundLayer = new Kinetic.Layer({
+        scale: Risk.Settings.globalScale
+    });
+    var imgObj = new Image();
+    imgObj.src = 'img/map_grey.jpg';
+    
+    var img = new Kinetic.Image({
+        image: imgObj,
+    });
+    Risk.backgroundLayer.add(img);
+}
+</pre>
+
+
+<p>As you can see we put the background image inside a <code>Kinetic.Layer</code>. You can think of this layer what you see in graphics editing programs.
+We will &#8216;write&#8217; the territory paths and names to a different layer, too.</p>
+
+<h4>Draw the territories with KineticJS</h4>
+
+<p>Now we have our background, so we can draw the territories &#8216;onto&#8217; this gray map. So let&#8217;s write our functions which will draw the actual territories. Open up <code>risk.js</code> again:</p>
+
+<pre class="prettyprint">
+init: function() {
+    //Initiate, or populate our main Territories Object, it contains essential data about the territories current state
+    Risk.setUpTerritoriesObj();
+
+    //Initiate a Kinetic stage
+    Risk.stage = new Kinetic.Stage({
+        container: 'map',
+        width: 1920,
+        height: 1080
+    });
+
+    Risk.mapLayer = new Kinetic.Layer({
+        scale: Risk.Settings.globalScale
+    });
+
+    Risk.drawBackgroundImg();
+    Risk.drawTerritories();
+
+    Risk.stage.add(Risk.backgroundLayer);
+    Risk.stage.add(Risk.mapLayer);
+
+    Risk.mapLayer.draw();
+
+    Risk.divideTerritories();
+},
+
+/**
+ * Initiate the  Risk.Territories Object, this will contain the essential informations about the territories 
+ */
+setUpTerritoriesObj: function() {
+    for(id in TerritoryNames) {
+
+        var pathObject = new Kinetic.Path({
+            data: TerritoryPathData[id].path,
+            id: id //set a unique id --> path.attrs.id
+        });
+
+        //Using a sprite image for territory names
+        //see: drawImage() -- https://developer.mozilla.org/en-US/docs/Canvas_tutorial/Using_images , and see Kinetic.Image() docs for more
+        var sprite = new Image();
+        sprite.src = 'img/names.png';
+        var territoryNameImg = new Kinetic.Image({
+            image: sprite,
+            x: FontDestinationCoords[id].x,
+            y: FontDestinationCoords[id].y,
+            width: FontSpriteCoords[id].sWidth, //'destiantion Width' 
+            height: FontSpriteCoords[id].sHeight, //'destination Height'
+            crop: [FontSpriteCoords[id].sx, FontSpriteCoords[id].sy, FontSpriteCoords[id].sWidth, FontSpriteCoords[id].sHeight]
+
+        });
+
+        Risk.Territories[id] = {
+            name: TerritoryNames[id],
+            path: pathObject,
+            nameImg: territoryNameImg,
+            color: null,
+            armyNum: null
+        };
+    }
+    
+},
+
+drawTerritories: function() {
+    for (t in Risk.Territories) {
+        
+        var path = Risk.Territories[t].path;
+        var nameImg = Risk.Territories[t].nameImg;
+        var group = new Kinetic.Group();
+
+        //We have to set up a group for proper mouseover on territories and sprite name images 
+        group.add(path);
+        group.add(nameImg);
+        Risk.mapLayer.add(group);
+    
+        //Basic animations 
+        //Wrap the 'path', 'group' and 't' variables inside a closure, and set up the mouseover / mouseout events for the demo
+        //when you make a bigger application you should move this functionality out from here, and maybe put these 'actions' in a seperate function/'class'
+        (function(path, t, group) {
+            group.on('mouseover', function() {
+                path.setFill('#eee');
+                path.setOpacity(0.3);
+                group.moveTo(Risk.topLayer);
+                Risk.topLayer.drawScene();
+            });
+
+            group.on('mouseout', function() {
+                path.setFill(Risk.Settings.colors[Risk.Territories[t].color]);
+                path.setOpacity(0.4);
+                group.moveTo(Risk.mapLayer);
+                Risk.topLayer.draw();
+            });
+
+            group.on('click', function() {
+                console.log(path.attrs.id);
+                location.hash = path.attrs.id;
+            });
+        })(path, t, group);
+    }               
+}
+</pre>
+
+
+<p>If you look back at the demo, you can see the territory names. The names were made with Photoshop.</p>
+
+<p>We can&#8217;t export all the names as images, we have to create a sprite from them. So one image will contain all the names (therefore the whole application will load faster), this sprite looks like this:</p>
+
+<p><img src="http://filad.github.com/images/risk/names.png" class="aligncenter" width="160px"></p>
+
+<p>How do I made this sprite? Well, it&#8217;s a long story, but I heavily used Photoshop scripts for this job.. I modified the layersToSprite.jsx script what you can find online.</p>
+
+<p>Then inside the <code>setUpTerritoriesObj()</code> function, every territorry will get their proper name image as we &#8216;crop out&#8217; from
+the sprite based on the data in <code>coordinates.js</code>. (This data also parsed with certain Photosop scripts I made)</p>
+
+<p>Lastly, as you can see, I added some actions to the &#8216;mouseover&#8217;, &#8216;onlick&#8217; event (changing the opacity of the territory). For this, I grouped together the actual territory and the territory name because it&#8217;s easier to handle these events in KineticJS this way.</p>
+
+<h4>Final conclusion</h4>
+
+<p>From now I suggest try to read the actual source code (with Chrome developer tools for example), because this post is getting really long :)</p>
+
+<p>I have tried to cover how to make a simple custom interactive map, but as you can see ,even for this simple map, you need to get your hands dirty, and a lot of things to do..</p>
+
+<p>I hope, though, that if you want to create a custom map with Javascript and HTML5 this post will help you to start.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hello World..]]></title>
