@@ -4,7 +4,7 @@
   <title><![CDATA[filkor.org Writings]]></title>
   <link href="http://dev.filkor.org/atom.xml" rel="self"/>
   <link href="http://dev.filkor.org/"/>
-  <updated>2013-04-14T17:51:28-04:00</updated>
+  <updated>2013-04-14T18:09:59-04:00</updated>
   <id>http://dev.filkor.org/</id>
   <author>
     <name><![CDATA[filkor]]></name>
@@ -242,6 +242,10 @@ init: function() {
     });
 
     Risk.mapLayer = new Kinetic.Layer({
+        scale: Risk.Settings.globalScale
+    });
+
+    Risk.topLayer = new Kinetic.Layer({
         scale: Risk.Settings.globalScale
     });
 

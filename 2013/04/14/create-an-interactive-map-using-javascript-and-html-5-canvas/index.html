@@ -331,6 +331,10 @@ init: function() {
         scale: Risk.Settings.globalScale
     });
 
+    Risk.topLayer = new Kinetic.Layer({
+        scale: Risk.Settings.globalScale
+    });
+
     Risk.drawBackgroundImg();
     Risk.drawTerritories();
 
