@@ -4,7 +4,7 @@
   <title><![CDATA[Category: js | filkor.org Writings]]></title>
   <link href="http://filad.github.com/blog/categories/js/atom.xml" rel="self"/>
   <link href="http://filad.github.com/"/>
-  <updated>2013-04-14T16:41:15-04:00</updated>
+  <updated>2013-04-14T16:42:18-04:00</updated>
   <id>http://filad.github.com/</id>
   <author>
     <name><![CDATA[filkor]]></name>
@@ -37,6 +37,9 @@ But when you need more customization, like different territory textures, shadows
 <li><a href="http://kineticjs.com">KineticJS</a>, a Javascript library, for the <code>canvas</code> manipulation</li>
 <li>A little Javacript knowledge</li>
 </ul>
+
+
+<!--more-->
 
 
 <h4>Draw the base paths with Illustrator</h4>
