@@ -4,7 +4,7 @@
   <title><![CDATA[filkor.org Writings]]></title>
   <link href="http://dev.filkor.org/atom.xml" rel="self"/>
   <link href="http://dev.filkor.org/"/>
-  <updated>2013-05-29T10:26:53-04:00</updated>
+  <updated>2014-01-10T15:50:42-05:00</updated>
   <id>http://dev.filkor.org/</id>
   <author>
     <name><![CDATA[filkor]]></name>
@@ -342,7 +342,7 @@ drawTerritories: function() {
 
 <p><img src="http://dev.filkor.org/images/risk/names.png" class="aligncenter" width="160px"></p>
 
-<p>How do I made this sprite? Well, it&#8217;s a long story, but I heavily used Photoshop scripts for this job.. I modified the layersToSprite.jsx script what you can find online.</p>
+<p>How did I make this sprite? Well, it&#8217;s a long story, but I heavily used Photoshop scripts for this job.. I modified the layersToSprite.jsx script what you can find online.</p>
 
 <p>Then inside the <code>setUpTerritoriesObj()</code> function, every territorry will get their proper name image as we &#8216;crop out&#8217; from
 the sprite based on the data in <code>coordinates.js</code>. (This data also parsed with certain Photosop scripts I made)</p>
