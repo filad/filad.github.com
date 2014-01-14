@@ -4,7 +4,7 @@
   <title><![CDATA[filkor.org Writings]]></title>
   <link href="http://dev.filkor.org/atom.xml" rel="self"/>
   <link href="http://dev.filkor.org/"/>
-  <updated>2014-01-10T15:50:42-05:00</updated>
+  <updated>2014-01-14T16:43:47-05:00</updated>
   <id>http://dev.filkor.org/</id>
   <author>
     <name><![CDATA[filkor]]></name>
@@ -12,6 +12,181 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[.htaccess examples and explanations]]></title>
+    <link href="http://dev.filkor.org/2014/01/09/dot-htaccess-examples-and-explanations/"/>
+    <updated>2014-01-09T19:52:00-05:00</updated>
+    <id>http://dev.filkor.org/2014/01/09/dot-htaccess-examples-and-explanations</id>
+    <content type="html"><![CDATA[<h4>1. example</h4>
+
+<p>Our goals in this example:</p>
+
+<ul>
+<li>Remove .php extensions. For example <code>filkor.org/hello.php</code> becomes <code>filkor.org/hello/</code></li>
+<li>Add trailing slash to the given URL (if it&#8217;s not there already)</li>
+<li>Redirect to /404.php if the file (resource) does not exist</li>
+</ul>
+
+
+<p>You can find the solution below with a step-by-step explanation.
+Also, look at the  <a href="http://htaccessexample.filkor.org" target="_blank"><strong>DEMO</strong></a> I made for this example.
+Try out different URL-s to see what happens.</p>
+
+<pre class="prettyprint">
+RewriteEngine On
+RewriteBase /
+
+# 1 
+RewriteCond %{ENV:REDIRECT_END}  =1
+RewriteRule ^                    -                    [L]
+
+# 2 - remove php file extension on GETs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_METHOD}   =GET
+RewriteRule (.*)\.php$          $1/                      [L,R=301]
+
+# 3 - add trailing slash
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^.*[^/]$            $0/                      [L,R=301]
+
+# 4 - terminate if file exists. 
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^                   -                        [L,E=END:1]
+
+# 5 - terminate if directory/index.php exists.  Could be $1index.php, too, cause "/" already exists between them.
+RewriteCond %{REQUEST_FILENAME}    -d
+RewriteCond %{REQUEST_FILENAME}index.php    -f
+RewriteRule ^(.*)(/?)$             $1/index.php          [L,E=END:1]
+
+# 6 - resolve urls to matching php files 
+RewriteCond %{DOCUMENT_ROOT}/$1.php  -f
+RewriteRule ^(.*?)/?$              $1.php                [L,E=END:1]
+
+# 7 - Anything else redirect to the 404 script.
+RewriteRule ^                      404.php              [L,E=END:1]
+</pre>
+
+
+<h4>Solution explanation</h4>
+
+<p>As you can see I divided up the solution into 7 parts and now I will go through them one by one.</p>
+
+<!--more-->
+
+
+
+
+<pre class="prettyprint">
+# 1
+RewriteCond %{ENV:REDIRECT_END}  =1
+RewriteRule ^                    -                    [L]
+</pre>
+
+
+<p>This is the #1. part. In a nutshell these two lines say: if the <code>REDIRECT_END</code> environment variable is set to 1 then completely stop the rewriting process.</p>
+
+<p>The second line here basically says &#8220;match the whole URL, don&#8217;t rewrite anything&#8221; and because the [L] flag is present it says &#8220;stop here&#8221;, so don&#8217;t process any more RewriteCond or RewriteRule directives. <br/>
+Where does this <code>REDIRECT_END</code> variable come from? It&#8217;s a bit tricky. I will tell you in a moment where does it come from, and why we need this particular variable.</p>
+
+<pre class="prettyprint">
+# 2 - remove php file extension on GETs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_METHOD}   =GET
+RewriteRule (.*)\.php$          $1/                      [L,R=301]
+</pre>
+
+
+<p>This is the part where we actually start manipulating the URL.<br/>
+The first condition says that the <code>%{REQUEST_FILENAME}</code> can&#8217;t be a directory. <br/>
+<code>%{REQUEST_FILENAME}</code> is the full local filesystem path to the file or script matching the request. (<a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html">source</a>)</p>
+
+<p>The next condition says we don&#8217;t do any rewrites if it&#8217;s not a <code>GET</code> request. This condition is not necessary, but I like to put it in. If we request with <code>POST</code> for example, the .htacces file won&#8217;t do anything (it&#8217;s not clear at first but believe me. It stops at part 4).   <br/>
+Let&#8217;s say we request the URL <code>filkor.org/hello.php</code>. The rewritten URL will be  <code>filkor.org/hello/</code>.<br/>
+Now one more important thing here: we got 2 flags <strong>[L,R=301]</strong>.</p>
+
+<p>Within mod_rewrite (the Apache module) we differentiate two types of &#8220;redirections&#8221;:<br/>
+- <strong>External redirection</strong>: When you see the <code>[R]</code> flag (like above), then it means we are doing an external redirection. The URL is going to change in your browser. The .htaccess will be processed again from the beginning (with the new URL).</p>
+
+<p>-<strong>Internal redirection</strong>: The main difference here is that the URL is <em>not</em> going to change in your address bar. However the .htaccess rules will be processed again (applying the new URL now). The URL will change only &#8220;internally&#8221; inside the Apache server, so to speak. <br/>
+We know that using an <strong>[L]</strong> flag it causes to stop processing the rule set (no more RewriteRule processing in this round), <em>moreover</em>, and this is the important part the <strong>[L]</strong> flag also causes an internal redirection. This means when you use an <strong>[L]</strong> flag it will restart processing the .htaccess rules with the new URL (until no actual rewrite happens).</p>
+
+<p>Sources: (<a href="http://httpd.apache.org/docs/2.4/rewrite/flags.html#flag_r">R flag</a>), (<a href="http://httpd.apache.org/docs/2.4/rewrite/flags.html#flag_l">L flag</a>), (<a href="http://httpd.apache.org/docs/current/rewrite/remapping.html">External, internal rewrites</a>)</p>
+
+<pre class="prettyprint">
+# 3 - add trailing slash
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^.*[^/]$            $0/                      [L,R=301]
+</pre>
+
+
+<p>Part #3 is pretty straightforward. We add a trailing slash if it&#8217;s not there already and if <code>REQUEST_FILENAME</code> is not a file.<br/>
+We don&#8217;t wanna add trailing slashes to the <code>.jpg</code> (or any static) files for example. <code>filkor.org/kitty.jpg/</code> would be fatal.<br/>
+From the flags you can see we&#8217;re doing a permanent redirect here. Which means we start the processing again from the beginning with the new URL.
+Note that <strong>[R]</strong> should be used in conjunction with the <strong>[L]</strong> flag.
+See (<a href="http://httpd.apache.org/docs/2.4/rewrite/flags.html#flag_r">source</a>).</p>
+
+<pre class="prettyprint">
+# 4 - terminate if file exists. 
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^                   -                        [L,E=END:1]
+</pre>
+
+
+<p>Terminate if file exists. For example if we requesting a <code>.jpg</code> file, or any static file.<br/>
+Look at the flags. We got an <code>[L]</code> flag and this causes an internal redirect. In the second flag we set up an environment variable called <code>END</code> and set it&#8217;s value to 1.<br/>
+Now the tricky part: after the internal redirect, this variable get renamed by having &#8220;REDIRECT_&#8221; prepended to it&#8217;s name. Yeah, thats annoying. And you couldn&#8217;t find docs about this.<br/>
+This is where we arrived to part #1 again and to the <code>%{ENV:REDIRECT_END}</code> variable.<br/>
+If we&#8217;are having an <code>[L,E=END:1]</code> flag from now on, this means &#8220;stop rewriting the URLs, stop .htaccess processing&#8221;.</p>
+
+<p>Further reading: <a href="http://stackoverflow.com/questions/3050444/when-setting-environment-variables-in-apache-rewriterule-directives-what-causes">What causes the variable name to be prefixed with “REDIRECT_”?</a></p>
+
+<pre class="prettyprint">
+# 5 - terminate if directory/index.php exists.
+RewriteCond %{REQUEST_FILENAME}    -d
+RewriteCond %{REQUEST_FILENAME}index.php    -f
+RewriteRule ^(.*)(/?)$             $1/index.php          [L,E=END:1]
+</pre>
+
+
+<p>Nothing fancy in this part. If we request <code>filkor.org/mydir/</code> then serve <code>filkor.org/mydir/index.php</code> (while the URL remains <code>filkor.org/mydir/</code>).
+Thats not an important part but it could be useful to be here. You see the <code>[L,E=END:1]</code> flag here with means terminate the rewriting process when we&#8217;ve served index.php.</p>
+
+<pre class="prettyprint">
+# 6 - resolve urls to matching php files 
+RewriteCond %{DOCUMENT_ROOT}/$1.php  -f
+RewriteRule ^(.*?)/?$              $1.php                [L,E=END:1]
+</pre>
+
+
+<p>What we are doing here is to change the URL back <em>internally</em> to <code>hello.php</code> then terminate.<br/>
+So while you see in your address bar <code>filkor.org/about/</code> we serve <code>filkor.org/about.php</code> internally. Nice, isn&#8217;t it?</p>
+
+<p>The RewriteCond is really interesting now.<br/>
+It might help to know that the RewriteCond is NOT processed first.<br/>
+Processing order is:</p>
+
+<ol>
+<li>evaluate the RewriteRule ^(.*?)/?$ pattern  to see if &#8220;true&#8221;</li>
+<li>if true, the ^(.*?)/?$ creates the <strong>$1</strong> backreference (which essentially holds the requested &#8220;filename&#8221;),</li>
+<li>evaluate the RewriteCond; which checks if the &#8220;filename&#8221;.php is really a file,</li>
+<li>redirect to a new URL internally (RewriteRule), then terminate (via the flags)</li>
+</ol>
+
+
+<p>(One <a href="http://www.webmasterworld.com/apache/4330396.htm">further example</a> for this feature)</p>
+
+<pre class="prettyprint">
+# 7 - Anything else redirect to the 404 script.
+RewriteRule ^                      404.php              [L,E=END:1]
+</pre>
+
+
+<p>Internally redirects to <code>404.php</code>, what means no URL changing, just serve <code>404.php</code> while you see <code>filkor.org/whatever/</code> inside your browser&#8217;s address bar.<br/>
+Maybe you will need a leading slash: <a href="http://webmasters.stackexchange.com/questions/27118/when-is-the-leading-slash-needed-in-mod-rewrite-patterns">When is the leading slash (/) needed in mod_rewrite patterns?</a>
+depending on your Apache version.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Create an interactive map using Javascript and HTML5 Canvas]]></title>

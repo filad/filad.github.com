@@ -9,9 +9,8 @@
   <meta name="author" content="filkor">
 
   
-  <meta name="description" content="I will show you how to create a custom interactive map using the HTML5 &lt;canvas&gt; element.
-You can check the result: DEMO here
-The map size on &hellip;">
+  <meta name="description" content="1. example Our goals in this example: Remove .php extensions. For example filkor.org/hello.php becomes filkor.org/hello/
+Add trailing slash to the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,6 +89,99 @@ The map size on &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2014/01/09/dot-htaccess-examples-and-explanations/">.htaccess Examples and Explanations</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-09T19:52:00-05:00" pubdate data-updated="true">Jan 9<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h4>1. example</h4>
+
+<p>Our goals in this example:</p>
+
+<ul>
+<li>Remove .php extensions. For example <code>filkor.org/hello.php</code> becomes <code>filkor.org/hello/</code></li>
+<li>Add trailing slash to the given URL (if it&#8217;s not there already)</li>
+<li>Redirect to /404.php if the file (resource) does not exist</li>
+</ul>
+
+
+<p>You can find the solution below with a step-by-step explanation.
+Also, look at the  <a href="http://htaccessexample.filkor.org" target="_blank"><strong>DEMO</strong></a> I made for this example.
+Try out different URL-s to see what happens.</p>
+
+<pre class="prettyprint">
+RewriteEngine On
+RewriteBase /
+
+# 1 
+RewriteCond %{ENV:REDIRECT_END}  =1
+RewriteRule ^                    -                    [L]
+
+# 2 - remove php file extension on GETs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_METHOD}   =GET
+RewriteRule (.*)\.php$          $1/                      [L,R=301]
+
+# 3 - add trailing slash
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^.*[^/]$            $0/                      [L,R=301]
+
+# 4 - terminate if file exists. 
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^                   -                        [L,E=END:1]
+
+# 5 - terminate if directory/index.php exists.  Could be $1index.php, too, cause "/" already exists between them.
+RewriteCond %{REQUEST_FILENAME}    -d
+RewriteCond %{REQUEST_FILENAME}index.php    -f
+RewriteRule ^(.*)(/?)$             $1/index.php          [L,E=END:1]
+
+# 6 - resolve urls to matching php files 
+RewriteCond %{DOCUMENT_ROOT}/$1.php  -f
+RewriteRule ^(.*?)/?$              $1.php                [L,E=END:1]
+
+# 7 - Anything else redirect to the 404 script.
+RewriteRule ^                      404.php              [L,E=END:1]
+</pre>
+
+
+<h4>Solution explanation</h4>
+
+<p>As you can see I divided up the solution into 7 parts and now I will go through them one by one.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2014/01/09/dot-htaccess-examples-and-explanations/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -216,6 +308,10 @@ It&#8217;s not that hard to set up and make some customizations, at least everyt
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/01/09/dot-htaccess-examples-and-explanations/">.htaccess examples and explanations</a>
+      </li>
     
       <li class="post">
         <a href="/2013/04/14/create-an-interactive-map-using-javascript-and-html-5-canvas/">Create an interactive map using Javascript and HTML5 Canvas</a>
