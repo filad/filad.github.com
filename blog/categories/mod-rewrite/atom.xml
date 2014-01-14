@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mod_rewrite | filkor.org Writings]]></title>
   <link href="http://dev.filkor.org/blog/categories/mod-rewrite/atom.xml" rel="self"/>
   <link href="http://dev.filkor.org/"/>
-  <updated>2014-01-14T16:43:47-05:00</updated>
+  <updated>2014-01-14T16:47:44-05:00</updated>
   <id>http://dev.filkor.org/</id>
   <author>
     <name><![CDATA[filkor]]></name>
@@ -70,7 +70,7 @@ RewriteRule ^                      404.php              [L,E=END:1]
 
 <h4>Solution explanation</h4>
 
-<p>As you can see I divided up the solution into 7 parts and now I will go through them one by one.</p>
+<p>As you can see I divided up the solution into 7 parts and now I will go through them one by one...</p>
 
 <!--more-->
 
