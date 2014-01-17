@@ -202,11 +202,13 @@ The first condition says that the <code>%{REQUEST_FILENAME}</code> can&#8217;t b
 Let&#8217;s say we request the URL <code>filkor.org/hello.php</code>. The rewritten URL will be  <code>filkor.org/hello/</code>.<br/>
 Now one more important thing here: we got 2 flags <strong>[L,R=301]</strong>.</p>
 
-<p>Within mod_rewrite (the Apache module) we differentiate two types of &#8220;redirections&#8221;:<br/>
+<p>Within mod_rewrite (the Apache module) we differentiate two types of &#8220;redirections&#8221; (or &#8220;rewrites&#8221;):<br/>
 - <strong>External redirection</strong>: When you see the <code>[R]</code> flag (like above), then it means we are doing an external redirection. The URL is going to change in your browser. The .htaccess will be processed again from the beginning (with the new URL).</p>
 
 <p>-<strong>Internal redirection</strong>: The main difference here is that the URL is <em>not</em> going to change in your address bar. However the .htaccess rules will be processed again (applying the new URL now). The URL will change only &#8220;internally&#8221; inside the Apache server, so to speak. <br/>
 We know that using an <strong>[L]</strong> flag it causes to stop processing the rule set (no more RewriteRule processing in this round), <em>moreover</em>, and this is the important part the <strong>[L]</strong> flag also causes an internal redirection. This means when you use an <strong>[L]</strong> flag it will restart processing the .htaccess rules with the new URL (until no actual rewrite happens).</p>
+
+<p>If this is not clear please write a comment and I will clarify this a bit more:) The most important thing about .htaccess to understand is when a rewite happens and there is an <strong>[L]</strong> flag then the whole process restarts from the beginning (part #1), now applying the new (rewritten) URL.</p>
 
 <p>Sources: (<a href="http://httpd.apache.org/docs/2.4/rewrite/flags.html#flag_r">R flag</a>), (<a href="http://httpd.apache.org/docs/2.4/rewrite/flags.html#flag_l">L flag</a>), (<a href="http://httpd.apache.org/docs/current/rewrite/remapping.html">External, internal rewrites</a>)</p>
 
