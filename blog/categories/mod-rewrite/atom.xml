@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mod_rewrite | filkor.org Writings]]></title>
   <link href="http://dev.filkor.org/blog/categories/mod-rewrite/atom.xml" rel="self"/>
   <link href="http://dev.filkor.org/"/>
-  <updated>2014-01-17T10:55:36-05:00</updated>
+  <updated>2014-01-24T18:15:08-05:00</updated>
   <id>http://dev.filkor.org/</id>
   <author>
     <name><![CDATA[filkor]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[.htaccess examples and explanations]]></title>
+    <title type="html"><![CDATA[RewriteRule examples and explanations]]></title>
     <link href="http://dev.filkor.org/2014/01/09/dot-htaccess-examples-and-explanations/"/>
     <updated>2014-01-09T19:52:00-05:00</updated>
     <id>http://dev.filkor.org/2014/01/09/dot-htaccess-examples-and-explanations</id>
